@@ -10,12 +10,13 @@ interface IUserRequest {
 
 class CreateUserService {
   async execute({ name, email, admin }: IUserRequest) {
-
     if (!email) {
       throw new Error("Email incorrect");
     }
 
-    const userAlreadyExists = await UsersRepositories.findOne({ where: {email} });
+    const userAlreadyExists = await UsersRepositories.findOne({
+      where: { email },
+    });
 
     if (userAlreadyExists) {
       throw new Error("Email already exists");
