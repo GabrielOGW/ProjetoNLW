@@ -8,15 +8,17 @@ interface IComplimentRequest {
 }
 
 class CreateComplimentsService {
-  async execute({tag_id, user_receiver, user_sender, message}: IComplimentRequest) {
+  async execute({tag_id, user_sender, user_receiver, message}: IComplimentRequest) {
+    
+    if(user_sender === user_receiver) {
+      throw new Error("Incorrect User Receiver")
+    }
     
     const userReceiverExists = await ComplimentsRepositories.findOne({
       where: {user_receiver}
     })
-
-    if(user_sender === user_receiver) {
-      throw new Error("Incorrect User Receiver")
-    }
+    
+    console.log(userReceiverExists)
 
     if(!userReceiverExists) {
       throw new Error("User Receiver does not exists")
