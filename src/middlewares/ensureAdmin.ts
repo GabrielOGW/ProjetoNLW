@@ -10,8 +10,6 @@ export async function ensureAdmin(
 
   const admin = await UsersRepositories.findOne({ where: { id: user_id } });
 
-  console.log(admin);
-
   if (admin) {
     return next();
   }
